@@ -28,9 +28,9 @@ We have several types of variables besides stings in bash:
 - Positional parameters
 
 To use a variable, simply type its name.
-Prefix variable name with '$' - example: `echo $NAME` will output `value`.
+Prefix variable name with '$' - example: `echo "$NAME"` will output `value`.
 
-Or use curly braces for more complex expressions - example: `echo ${NAME}thing` will output `valuething`.
+Or use curly braces for more complex expressions - example: `echo "${NAME}" thing` will output `valuething`.
 
 To return the type of a variable, use the `declare` command:
 
@@ -43,7 +43,7 @@ example:
 ```bash
 MYVAR="Hello World"
 MYARRAY=("A" "B" "C")
-declare -i MYINT=42
+MYINT=42
 
 declare -p MYVAR
 declare -p MYARRAY
@@ -66,23 +66,23 @@ By default all variables are strings. To use **integers**, use the `declare` com
 declare -i INT=5
 ```
 
-`echo $INT` will output `5`.
+`echo "$INT"` will output `5`.
 
 For **arrays**, use:
 
 ```bash
 declare -a ARRAY=(1 2 3)
 ```
-`echo $ARRAY` will output `1`.
-`echo ${ARRAY[1]}` will output `2`.
+`echo "$ARRAY"` will output `1`.
+`echo "${ARRAY[1]}"` will output `2`.
 
-- Arrays are declared with `declare -a` and accessed with `${ARRAY[index]}`. You can access all indexes with `${ARRAY[@]}`.
+- Arrays are declared with `declare -a` and accessed with `"${ARRAY[index]}"`. You can access all indexes with `"${ARRAY[@]}"`.
 - Arrays are defined as a list of values separated by spaces.
 - Arrays are zero-indexed.
 - You can add values to an array with `ARRAY+=(4 5 6)`.
 - You can remove values from an array with `unset ARRAY[index]`.
 - You can remove the whole array with `unset ARRAY`.
-- You can get the length of an array with `${#ARRAY[@]}`.
+- You can get the length of an array with `"${#ARRAY[@]}"`.
 - You can get the length of a specific element with `${#ARRAY[index]}`.
 
 For **associative arrays**, use:
