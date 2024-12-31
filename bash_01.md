@@ -28,9 +28,11 @@ We have several types of variables besides stings in bash:
 - Positional parameters
 
 To use a variable, simply type its name.
-Prefix variable name with '$' - example: `echo "$NAME"` will output `value`.
+Prefix variable name with "$" - example: `echo "$NAME"` will output `value`.
 
 Or use curly braces for more complex expressions - example: `echo "${NAME}" thing` will output `valuething`.
+
+Notice than when you call a variable, you generally use double quotes as single quotes will ignore escape characters.
 
 To return the type of a variable, use the `declare` command:
 
@@ -57,6 +59,16 @@ declare -- MYVAR="Hello World"
 declare -a MYARRAY=([0]="A" [1]="B" [2]="C")
 declare -i MYINT=42
 ```
+
+You need quotes and `$` together when:
+
+1. **Echoing variable values**: `echo "$VARIABLE"` - quotes preserve value formatting.
+2. **Assigning values with spaces**: `VARIABLE="hello world"` - quotes ensure single assignment.
+3. **Passing variables as arguments**: `my_script "$VARIABLE"` - quotes preserve value formatting.
+4. **Using variables in strings**: `echo "My value is $VARIABLE"` - `$` accesses value, quotes ensure correct string formatting.
+5. **Command substitution**: `VARIABLE="$(my_command)"` - quotes capture command output with formatting.
+
+Quotes + `$` ensure values are used correctly in scripts.
 
 ### Variable types
 
