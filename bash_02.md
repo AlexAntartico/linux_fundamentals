@@ -126,9 +126,33 @@ These operators are specifically designed for comparing integer values:
     fi
     ```
 
+### Considerations for Numeric comparisons
+
+* Ensure variables are numeric; otherwise, unexpected behavior might occur.
+* Use quotes around variables to handle empty or unset variables gracefully
+
 ## Arithmetic Expansions for Numeric Comparisons
 
 Using eq, ne, lt, gt, le, ge will feel unnatural. In strict Bash, you can use arithmetic expansions. Basically, you are substituting double square brackets [[ ]] for double parenthesis (( )) and use the regular and well-known math operators.
+
+### Considerations for Arithmetic Expansions for Numeric Comparisons
+
+* Variables don't need quotes inside (())
+* Unset or empty variables are automatically treated as 0
+* Non-numeric values will cause an error
+
+Here's a demonstration:
+
+```bash
+# Empty variables become 0
+unset A
+(( A == 0 )) && echo "unset x equals 0"
+
+# Non-numeric causes error
+A="hello"
+(( A == 0 ))  # This will fail with error
+
+```
 
 
 
