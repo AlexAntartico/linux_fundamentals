@@ -140,7 +140,9 @@ Using eq, ne, lt, gt, le, ge will feel unnatural. In strict Bash, you can use ar
 * Variables don't need quotes inside (())
 * Unset or empty variables are automatically treated as 0
 * Non-numeric values will cause an error
-
+* You can use && in combination with echo to check the result of the operation
+* To print an actual calculation, you need to use echo and append $ to the arithmetic expansion
+*
 Here's a demonstration:
 
 ```bash
@@ -151,6 +153,23 @@ unset A
 # Non-numeric causes error
 A="hello"
 (( A == 0 ))  # This will fail with error
+
+# No quotes required
+B=10
+(( B == 10 )) && echo "B equals 10"  # Works just fine without quotes
+
+# Multiple operations work fine
+
+C=3
+(( B + C >= 20 ))  # This will fail and will output nothing
+
+(( B + C <= 20 ))  # This will pass and will output nothing
+
+# You can use && to check the result of the operation
+(( B + C >= 20 )) && echo 'true' || echo 'false'  # This will output false
+
+# to print an actual calculation, you need to use echo and append $ to the arithmetic expansion
+echo $(( B + C ))  # This will output 13
 
 ```
 
