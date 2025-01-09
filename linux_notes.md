@@ -21,3 +21,15 @@ Examples:
 
 Equivalent to numeric:
 * `chmod 775 file` = `chmod ug=rwx,o=r file`
+
+# free
+
+`free` command shows the amount of free and used RAM in the system.
+
+Example:
+```bash
+
+
+```
+
+
