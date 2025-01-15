@@ -3,6 +3,7 @@ let mapleader = ","
 
 " General settings
 set number
+set clipboard=unnamedplus,unnamed
 " set relativenumber
 set tabstop=4	" Number of spaces that a <Tab> in the file counts for
 set shiftwidth=4	" Number of spaces to use for each step of (auto)indent
@@ -16,13 +17,18 @@ set smarttab	" Use the appropriate number of spaces to insert a <Tab>
 set backspace=indent,eol,start	" Allow backspacing over everything in insert mode
 syntax on	" Enable syntax highlighting
 set mouse=a	" Enable mouse support
+set cursorline    " Highlight the current line
 set ignorecase	" Ignore case when searching
 set showmatch	" Show matching brackets
 set encoding=utf-8	" Set encoding to UTF-8
-set hlsearch	" Highlight search results
 set incsearch	" Incremental search
 set wildmenu	" Enhanced command line completion
 set wildmode=longest:full,full	" Enhanced command line completion
+
+" Clipboard mappings
+vmap <C-c> "+y
+nnoremap <C-v> "+p
+inoremap <C-v> <C-r>+
 
 " Plugins
 call plug#begin('~/.vim/plugged')
@@ -67,8 +73,8 @@ if has('persistent_undo')
 endif
 
 " Custom status line
-"set laststatus=2
-"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
+set laststatus=2
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)
 
 " Spell checking for text files
 autocmd FileType text,markdown setlocal spell spelllang=en_us
@@ -82,6 +88,5 @@ set splitright
 
 " File-specific indentation for YAML files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
 
 
