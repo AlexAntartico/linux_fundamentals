@@ -3,7 +3,7 @@ let mapleader = ","
 
 " General settings
 set number
-set clipboard=unnamedplus,unnamed
+set clipboard=unnamed
 " set relativenumber
 set tabstop=4	" Number of spaces that a <Tab> in the file counts for
 set shiftwidth=4	" Number of spaces to use for each step of (auto)indent
@@ -89,4 +89,6 @@ set splitright
 " File-specific indentation for YAML files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+" File-specific indentation for Markdown files
+autocmd FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
 
