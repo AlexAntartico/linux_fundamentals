@@ -1,0 +1,83 @@
+name: Publish to Dev.to
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'posts/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Upgrade pip and Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml requests
+
+    - name: Verify API Key Availability
+      env:
+        DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}  # Keep existing secret mapping
+      run: |
+        echo "API key character count: ${#DEVTO_API_KEY}"
+        echo "API key empty check: $([ -z "$DEVTO_API_KEY" ] && echo 'Empty' || echo 'Set')"
+
+    - name: Convert md to Dev.to format
+      env:
+        DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+      run: |
+        python publish_script.py ./posts/main.md > formatted_article.json
+
+    - name: Publish or Update to Dev.to
+      env:
+        DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+      run: |
+        echo "Action value:"
+        jq -r '.action' formatted_article.json
+        
+        echo "Article structure:"
+        jq '.article.article' formatted_article.json | jq 'del(.body_markdown)'
+        
+        action=$(jq -r '.action' formatted_article.json)
+        article_data=$(jq '.article.article' formatted_article.json)
+        article_id=$(jq -r '.article.article.id' formatted_article.json)
+        
+        if [ "$action" = "create" ]; then
+          echo "Attempting to create article..."
+          response=$(curl -X POST "https://dev.to/api/articles" \
+            -H "api-key: $DEVTO_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"article\": $article_data}" \
+            -w "\n%{http_code}")
+        elif [ "$action" = "update" ]; then
+          echo "Attempting to update article with ID: $article_id"
+          response=$(curl -X PUT "https://dev.to/api/articles/$article_id" \
+            -H "api-key: $DEVTO_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"article\": $article_data}" \
+            -w "\n%{http_code}")
+        else
+          echo "Invalid action: $action"
+          exit 1
+        fi
+        
+        echo "Response:"
+        echo "$response" | head -n -1
+        
+        status_code=$(echo "$response" | tail -n1)
+        if [ "$status_code" -ne 200 ] && [ "$status_code" -ne 201 ]; then
+          echo "Failed to update article. Status code: $status_code"
+          echo "Full response:"
+          echo "$response"
+          exit 1
+        fi
+
