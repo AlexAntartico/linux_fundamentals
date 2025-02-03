@@ -1,5 +1,7 @@
 " Vim settings
 let mapleader = ","
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " General settings
 set number
@@ -87,8 +89,5 @@ set splitbelow
 set splitright
 
 " File-specific indentation for YAML files
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" File-specific indentation for Markdown files
-autocmd FileType markdown setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml,markdown,html,css,javascript setlocal ts=2 sts=2 sw=2 expandtab
 
