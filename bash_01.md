@@ -180,7 +180,7 @@ To view all environment variables, use the `env` command. To view a specific var
 
 ### Positional parameters
 
-Positional parameters are variables that are assigned when a script is called. They are accessed with `$1`, `$2`, `$3`, etc. Positional parameters are read-only.
+Positional parameters are variables that are assigned when a script is called. They are separated by a space and inside bash, these are accessed with `$1`, `$2`, `$3`, etc. $0 is a special parameter that saves the name of the script. Positional parameters are read-only.
 
 - `$0` is the name of the script.
 - `$1` is the first argument.
@@ -193,6 +193,32 @@ Positional parameters are variables that are assigned when a script is called. T
 - `$$` is the process ID of the current shell.
 - `$!` is the process ID of the last command run in the background.
 - `$_` is the last argument of the last command.
+
+```sh
+#!/usr/bin/bash
+#
+# Usage:
+# echo_parameters.sh <param1> <param2> <param3> <param4>
+
+echo $#  # number of params
+echo $0  # name of script
+echo $1  # param1
+echo $2  # param2
+echo $3  # param3
+```
+
+`bash echo_parameters.sh yippie kay yay`
+
+will output:
+
+```sh
+4
+echo_parameters.sh
+yippie
+kay
+yay
+```
+
 
 ## Practice with variables
 
