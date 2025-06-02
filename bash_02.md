@@ -1,5 +1,13 @@
 # Control Structures
 
+## input
+
+User input is send into bash by using the `read` command. Read command obtains input from stdin and stores it in a variable.
+
+```sh
+#!/
+```
+
 ## Introduction to Conditional Statements
 
 Bash scripting is a powerful tool for automating tasks in Unix-like systems. One of the key components of writing effective scripts is understanding how to use conditional statements to control the flow execution based on certain conditions. Let's explore the basics of `if`, `else`, and `elif` statements in Bash.
