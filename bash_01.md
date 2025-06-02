@@ -70,6 +70,28 @@ You need quotes and `$` together when:
 
 Quotes + `$` ensure values are used correctly in scripts.
 
+**Double quotes** allow for other substitutions to happen in the string, ie:
+
+```sh
+FIRSTVAR="a hopefully, very long and productive journey."
+SECONDVAR="This is just the beginning of $FIRST"
+echo $SECONDVAR
+```
+will output:
+`This is just the beginning of a hopefully, very long and productive journey.`
+
+With single quotes, no substitution is possible.
+
+### Store the output of a shell command
+
+You can store the output of a shell command with `$( )`. You can also pipe several commands inside $( ).
+
+```sh
+CURRENTDIR=$(pwd)
+```
+
+Instead of sending the result of pwd to stdout, this will store pwd in $CURRENTDIR
+
 ### Variable types
 
 By default all variables are strings. To use **integers**, use the `declare` command:
