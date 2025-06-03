@@ -222,20 +222,28 @@ yay
 
 ## Practice with variables
 
-Lets practice declaring and using some variables. Try these scenarios using strings, integers, arrays and associative arrays:
+Let's practice declaring and using variables in Bash. Try these 20 exercises covering strings, integers, arrays, associative arrays, environment variables, and positional parameters:
 
-1. Declare and print a name and an age. Age must be integer.
-2. Return the type of variables declared in step 1. name should be a string and age should be an integer.
-3. Declare variable "FOOD" with your favourite food value and use curly braces to append " is my favourite food".
-4. Declare variables FIRSTNAME and LASTNAME with your first and last name. Use positional parameters to print your full name.
-5. Declare an array with your favourite 5 movies and print the third movie.
-6. Remove the last movie from 5.
-7. Add two new movies to the array.
-9. Return the array length from 7, it should be 6.
-10. Remove the whole array.
-11. Simple Math: Delare NUM with value 6, add 4, store in a variable and print said variable.
-12. Declare an associative array with 3 key-value pairs. Print all keys.
-13. Remove the second key-value pair.
-14. Print the length of the associative array, it should be 2.
-15. Remove the whole associative array.
+1. **Declare and print a string variable**: Set `NAME` to your name and print it.
+2. **Declare and print an integer variable**: Set `AGE` as an integer (using `declare -i`) and print it.
+3. **Check variable types**: Use `declare -p` to display the types of `NAME` and `AGE`.
+4. **String concatenation**: Declare `FOOD` with your favorite food and print "`<food> is my favourite food`" using curly braces.
+5. **Variable substitution in strings**: Create `CITY` and print "I live in $CITY" using double quotes.
+6. **Store command output**: Store the current directory in `CURRENTDIR` using `$(pwd)` and print it.
+7. **Declare and print an array**: Create `MOVIES` with your 5 favorite movies and print the third movie.
+8. **Remove the last array element**: Remove the last movie from `MOVIES` and print the array.
+9. **Add elements to an array**: Add two new movies to `MOVIES` and print the updated array.
+10. **Print array length**: Print the number of elements in `MOVIES`.
+11. **Remove the whole array**: Delete `MOVIES` and verify it's unset.
+12. **Simple math with integers**: Declare `NUM=6`, add 4, store in `SUM`, and print `SUM`.
+13. **Declare an associative array**: Create `COLORS` with 3 key-value pairs (e.g., "red"="apple", "yellow"="banana", "green"="kiwi").
+14. **Print all associative array keys**: Print all keys in `COLORS`.
+15. **Remove a key-value pair**: Remove the second key-value pair from `COLORS` and print the array.
+16. **Print associative array length**: Print the number of key-value pairs in `COLORS`.
+17. **Remove the whole associative array**: Delete `COLORS` and verify it's unset.
+18. **Export an environment variable**: Export `EDITOR` as "vim" and print it using `echo $EDITOR`.
+19. **Use positional parameters**: Write a script that prints the script name and the first two arguments.
+20. **Print special variables**: Print the values of `$USER`, `$PWD`, and `$RANDOM`.
+
+Write Bash code for each scenario and run them to see the results.
 
