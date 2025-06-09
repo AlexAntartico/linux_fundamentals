@@ -5,8 +5,30 @@
 User input is send into bash by using the `read` command. Read command obtains input from stdin and stores it in a variable.
 
 ```sh
-#!/
+#!/bin/bash
+
+echo -e "Write the first number and press enter"
+read $NUM1
+echo -e "Write the second number and press enter"
+read $NUM2
+
+echo -e "The sum of $NUM1 and $NUM2 is:\n$((NUM1 + NUM2))"
 ```
+
+## Capture Output
+
+You can capture the output of a command by using `$( )`. ie: 
+
+```bash
+#!/bin/bash
+CMDOUT=$(pwd)
+
+echo -e "This is the output of pwd: $CMDOUT"
+```
+
+This will ouput:
+
+`This is the output of pwd: /c/Users/User/Repositories/bash`
 
 ## Introduction to Conditional Statements
 
