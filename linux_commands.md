@@ -81,3 +81,49 @@ An explanation of the columns:
 * `available` = memory available for new processes
 
 ie, in the last `free -ht` example, the system has 30GiB of total memory, 10GiB used, 13GiB free, 245MiB shared, 7.8GiB buffer/cache, and 20GiB available. The total memory is 38GiB, with 10GiB used and 21GiB free. 
+
+# SCP - Secure Copy Protocol
+
+SCP is a command-line utility for securely transferring files between hosts on a network. It uses SSH for data transfer and provides the same authentication and security as SSH.
+
+Basic syntax: `scp [options] source destination`
+
+Common options:
+* `-r` = recursively copy entire directories
+* `-P` = specify the port to connect to on the remote host (note: uppercase P)
+* `-p` = preserve modification times, access times, and modes from the original file
+* `-q` = quiet mode, suppresses progress meter and non-error messages
+* `-v` = verbose mode, provides detailed information about the transfer process
+
+```bash
+scp test.txt user@host:/path/to/remote/file # Copy test.txt to remote host
+scp -r /local/dir user@host:/remote/dir # Recursively copy a directory to remote host
+scp -P 2222 test.txt user@host:/path/to/remote/file # Copy test.txt to remote host using port 2222
+scp -p test.txt user@host:/path/to/remote/file # Preserve file attributes while copying
+scp -q test.txt user@host:/path/to/remote/file # Copy test.txt to remote host in quiet mode
+scp -v test.txt user@host:/path/to/remote/file # Copy test.txt to remote host in verbose mode
+```
+
+Example output of `scp -v test.txt user@host:/path/to/remote/file`
+
+```shell
+Executing: program /usr/bin/ssh host scp -v -t /path/to/remote/file
+OpenSSH_8.2p1, OpenSSL 1.1.1d  10 Sep 2019
+debug1: Connecting to host [IP_ADDRESS] port 22.
+debug1: Connection established.
+debug1: identity file /Users/username/.ssh/id_rsa type 0
+user@host's password:
+debug1: Authentication succeeded (password).
+Sending file modes: C0644 12345 test.txt
+Sink: C0644 12345 test.txt
+test.txt
+```
+
+## Important Notes
+
+- **You will be prompted to enter password** for the remote user account on the remote host unless you have set up SSH keys for passwordless authentication or are using an alternative authentication method like kerberos.
+- The **remote host must have SSH server running** and configured to accept connections.
+- **You need necessary permissions** to read the source file and necessary permissions to write to the destination directory on the remote host.
+
+
+
