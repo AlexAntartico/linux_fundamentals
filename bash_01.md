@@ -1,24 +1,35 @@
-# Bash scripting Basics
+# Variables in Bash
 
-## Variables
-
-### Declaring variables
+## Declaring variables
 
 Simply type:
 
 ```bash
 NAME="value" # No spaces between variable name, equal sign and value
 ```
-
-- Variable names:
-  - Can contain letters, numbers and underscores
+- Rules:
+  - No spaces around the equal sign.
+  - Varible names can contain letters, numbers and underscores
   - Cannot start with a number
-  - Are case-sensitive
-  - Should be in uppercase by common practice
+  - Are case-sensitive: `NAME` and `name` are different variables
+
+- Naming Conventions:
+  - Use `UPPERCASE` for
+    * Environment variables: `PATH`, `HOME`, `USER`, `SHELL`
+    * Global configuration variables: `CONFIG_FILE`, `LOG_LEVEL`, `APP_NAME`
+    * Constants: `readonly MAX_RETRIES=3`, `PI=3.14159`
+    * Variables exported to child processes: `export DATABASE_URL="..."`
+  - Use `lowercase` for local/temporary variables: temp_file, counter
+    * Local variables in functions: `temp_file`, `counter`, `result`
+    * Loop variables: `for file in *.txt`
+    * Temporary/working variables: `user_input`, `current_date`
+    * Script-internal variables: `backup_dir`, `file_count`
+  - Use descriptive names: `user_count` instead of `uc`
+  - Separate words with underscores: `file_name` not `filename`
 
 ### Using variables
 
-We have several types of variables besides stings in bash:
+We have several types of variables besides strings. Bash however, does not support floating-point numbers.
 
 - Strings
 - Integers
@@ -59,13 +70,24 @@ declare -- MYVAR="Hello World"
 declare -a MYARRAY=([0]="A" [1]="B" [2]="C")
 declare -i MYINT=42
 ```
+# Double Quotes and Parameter Expansion
 
-You need quotes and `$` together when:
+**Double Quotes** `"` Are generally preferred because they allow for variable substitution (the shell replaces $VARIABLE with its value) and command substitution ($(command) is replaced by its output) within the string. Double quotes also preserve whitespace and special characters.
 
-1. **Echoing variable values**: `echo "$VARIABLE"` - quotes preserve value formatting.
-2. **Assigning values with spaces**: `VARIABLE="hello world"` - quotes ensure single assignment.
-3. **Passing variables as arguments**: `my_script "$VARIABLE"` - quotes preserve value formatting.
-4. **Using variables in strings**: `echo "My value is $VARIABLE"` - `$` accesses value, quotes ensure correct string formatting.
+**Double Quotes with curly braces `{}`** unlock a set of features calles **parameter expansion**. This should be the default in scripting a paramount feature of automation and resilient scripting often used in DevOps. Parameter expansion allows you to manipulate the value of a variable in various ways. We will cover three of the most useful ones:
+
+1. **Providing a default value**: If the variable is unset or null, you can provide a default value using `${VAR:-default}`. For example:
+
+   ```bash
+   echo "${MYVAR:-default_value}"
+   ```
+
+   If `MYVAR` is unset or empty, it will output `default_value`.
+
+1. **Echoing variable values**: `echo "$VARIABLE"` - ensures the exact value is printed, preserving spaces and special characters.
+2. **Assigning values with spaces**: `VARIABLE="hello world"` - treats the entire phrase as a single value.
+3. **Passing variables as arguments**: `my_script "$VARIABLE"` - ensures the argument is passed as a single unit.
+4. **Using variables in strings**: `echo "My value is $VARIABLE"` - `$` allows the variable's value to be inserted directly into the string.
 5. **Command substitution**: `VARIABLE="$(my_command)"` - quotes capture command output with formatting.
 
 Quotes + `$` ensure values are used correctly in scripts.
@@ -125,15 +147,7 @@ For standard variable expansion, ${MYVAR} is always preferred. You might not nee
 
 ### Parameter expansion { }
 
-Besides protecting variables, curly braces `{ }` will unlock a set of features calles **parameter expansion**. This is a paramount feature of automation and resilient scripting often used in DevOps. Parameter expansion allows you to manipulate the value of a variable in various ways. We will cover three of the most useful ones:
-
-1. **Providing a default value**: If the variable is unset or null, you can provide a default value using `${VAR:-default}`. For example:
-
-   ```bash
-   echo "${MYVAR:-default_value}"
-   ```
-
-   If `MYVAR` is unset or empty, it will output `default_value`.
+Besides protecting variables, curly braces `{ }` will 
 
 
 ### Variable types
