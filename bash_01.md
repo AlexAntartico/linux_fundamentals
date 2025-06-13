@@ -92,6 +92,50 @@ CURRENTDIR=$(pwd)
 
 Instead of sending the result of pwd to stdout, this will store pwd in $CURRENTDIR
 
+### `${MYVAR}` vs `$MYVAR`
+
+**In Scripts**, you should use `${MYVAR}`.
+
+**In command line and interactive use**, you can use `$MYVAR` or `${MYVAR}` interchangeably.
+
+**Why???** would you ask yourself?
+
+The shell, needs to know where the variable name ends. Shell will assume your varialbe name ends at the first character that is not valid for, you guessed; a variable name. Aka not an alphanumeric character or underscore.
+
+Imagine that  you need to append `_test.log` to the contents of a variable:
+
+```bash
+FILENAME="app_execution"
+
+# --- The wrong way ---
+echo "Creating log file: $FILENAME_test.log"
+
+# --- The right way ---
+echo "Creating log file: ${FILENAME}_test.log"
+```
+
+Spot the diffence? Curly braces will actually tell the shell where the variable name starts and ends, it will not try to append `_test.log` to the variable name. The output would look like this:
+
+```bash
+Creating log file: .log
+Creating log file: app_execution_test.log
+```
+
+For standard variable expansion, ${MYVAR} is always preferred. You might not need it, but it will never hurt to use it.
+
+### Parameter expansion { }
+
+Besides protecting variables, curly braces `{ }` will unlock a set of features calles **parameter expansion**. This is a paramount feature of automation and resilient scripting often used in DevOps. Parameter expansion allows you to manipulate the value of a variable in various ways. We will cover three of the most useful ones:
+
+1. **Providing a default value**: If the variable is unset or null, you can provide a default value using `${VAR:-default}`. For example:
+
+   ```bash
+   echo "${MYVAR:-default_value}"
+   ```
+
+   If `MYVAR` is unset or empty, it will output `default_value`.
+
+
 ### Variable types
 
 By default all variables are strings. To use **integers**, use the `declare` command:

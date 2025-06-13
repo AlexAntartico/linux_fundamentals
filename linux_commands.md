@@ -125,5 +125,44 @@ test.txt
 - The **remote host must have SSH server running** and configured to accept connections.
 - **You need necessary permissions** to read the source file and necessary permissions to write to the destination directory on the remote host.
 
+# Netcat
 
+`nc` The "Swiss Army Knife" of networking, is a tool for reading from and writing to network connections using TCP or UDP. It can be used for various tasks such as port scanning, banner grabbing, file transfers, and even creating simple chat applications.
 
+Basic syntax: `nc [options] [hostname] [port]`
+
+Common options:
+* `-l` = listen mode, for inbound connections
+* `-p` = local port number to bind to
+* `-u` = use UDP instead of TCP
+* `-zv` = zero-I/O mode, used for scanning (verbose)
+
+# curl
+
+`curl` is a commnad-line tool used to transfer data between a client and a server using various protocols like HTTP, HTTPS, FTP, etc. The best practice is to always use HTTPS unless instructed otherwise. For API testing, `curl` is often used with tools like `jq` to parse JSON responses.
+
+Basic syntax: `curl [options] [URL]`
+
+## Supported curl protocols:
+* HTTP/HTTPS
+* FTP/FTPS
+* SMTP
+* IMAP
+* POP3
+* LDAP
+* more, see `curl --help` for a full list.
+
+Common uses:
+* `curl http://example.com` = fetch the content of a webpage
+* `curl -O http://example.com/file.txt` = download a file from a URL
+* `curl -o index.html http://example.com` = save the content of a webpage to a file named `index.html`
+* `curl -I http://example.com` = fetch the HTTP headers of a webpage
+* `curl -X POST -d "param1=value1&param2=value2" http://example.com/api` = Specifiy HTTP method (GET, POST, PUT, DELETE)
+* `curl -H "Authorization: Bearer YOUR_TOKEN" http://example.com/api` = Add custom headers to the request
+* `curl -L http://example.com` = Follow redirects
+* `curl -u username:password http://example.com` = Use basic authentication
+* `curl -k https://example.com` = Allow insecure SSL connections, not recommended for production use
+* `curl --max-time 10 http://example.com` = Set a maximum time for the request to complete
+* `curl --retry 3 http://example.com` = Retry the request up to 3 times on failure
+
+And many more...
