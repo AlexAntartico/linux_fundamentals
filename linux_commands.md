@@ -22,7 +22,7 @@ Examples:
 Equivalent to numeric:
 * `chmod 775 file` = `chmod ug=rwx,o=r file`
 
-Mnemotecnic rule for chmod numeric notation:
+## Mnemotecnic rule for chmod numeric notation:
 
 The max number is 7, which is the sum of the permissions. You can think of it as a 3-digit number where each digit represents the permissions for user, group, and others.
 
